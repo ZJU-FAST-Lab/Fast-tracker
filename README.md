@@ -83,10 +83,7 @@ catkin_make
 
 ## 3. Run the Simulation
 
-Open a terminal and type the following commands.
-
 ```
-cd ~/your_catkin_ws
 source devel/setup.bash
 ./simulation
 ```

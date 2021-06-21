@@ -37,7 +37,7 @@ sudo apt-get install libarmadillo-dev
 Install [ompl](https://ompl.kavrakilab.org/), which is required by **car_planner**.
 
 ```
-sudo apt-get install ros-melodic-ompl
+sudo apt-get install libompl-dev
 ```
 
 ### Step 3

@@ -7,7 +7,7 @@ A Robust Aerial System for Tracking Agile Target in Cluttered Environments
 
 **Author**: Zhichao Han\*, Ruibin Zhang\*, Neng Pan\*, Chao Xu and [Fei Gao](https://ustfei.com/) from the [ZJU Fast Lab](www.kivact.com/). 
 
-**Related Paper**: [Fast-Tracker: A Robust Aerial System for Tracking AgileTarget in Cluttered Environments](https://arxiv.org/abs/2011.03968), Zhichao Han\*, Ruibin Zhang\*, Neng Pan\*, Chao Xu, Fei Gao, accepted, International Conference on Robotics and Automation (ICRA 2021)
+**Related Paper**: [Fast-Tracker: A Robust Aerial System for Tracking AgileTarget in Cluttered Environments](https://arxiv.org/abs/2011.03968), Zhichao Han\*, Ruibin Zhang\*, Neng Pan\*, Chao Xu, Fei Gao, International Conference on Robotics and Automation (ICRA 2021)
 
 **Video Links**: [youtube](https://www.youtube.com/watch?v=w8ECy6rgYa8) or [bilibili](https://www.bilibili.com/video/BV1xr4y1w7RJ)
 

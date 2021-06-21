@@ -44,7 +44,14 @@ sudo apt-get install ros-melodic-ompl
 
 In **target prediction** part, we use **OOQP** for quadratic programming.
 
-1. Get a copy of **MA27** from the [HSL Archive](http://www.hsl.rl.ac.uk/download/MA27/1.0.0/a/). Just select the **Personal Licence (allows use without redistribution)**, then fill the information table. 
+1. Type the following commands to install dependencies.
+
+   ```
+   sudo apt-get install gfortran
+   sudo apt-get install doxygen
+   ```
+
+2. Get a copy of **MA27** from the [HSL Archive](http://www.hsl.rl.ac.uk/download/MA27/1.0.0/a/). Just select the **Personal Licence (allows use without redistribution)**, then fill the information table. 
 
 ​        Then you can download it from an e-mail sent to you. Next, un-zip **MA27**, and follow the *README* in it, install it to your Ubuntu.
 
@@ -56,7 +63,7 @@ make
 sudo make install
 ```
 
-2. Manually un-zip packages *OOQP.zip* in the repo and install it to your Ubuntu.
+3. Manually un-zip packages *OOQP.zip* in the repo and install it to your Ubuntu.
 
 **As above, you can just type 3 commands in OOQP's folder :**
 

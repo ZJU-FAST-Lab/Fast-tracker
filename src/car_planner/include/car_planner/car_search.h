@@ -11,9 +11,9 @@
 #include <string>
 #include <unordered_map>
 #include <utility>
-#include <ompl-1.5/ompl/base/spaces/ReedsSheppStateSpace.h>
-#include <ompl-1.5/ompl/base/spaces/DubinsStateSpace.h>
-#include <ompl-1.5/ompl/geometric/SimpleSetup.h>
+#include <ompl/base/spaces/ReedsSheppStateSpace.h>
+#include <ompl/base/spaces/DubinsStateSpace.h>
+#include <ompl/geometric/SimpleSetup.h>
 #include <visualization_msgs/MarkerArray.h>
 #include <Eigen/Eigen>
 #include <Eigen/StdVector>

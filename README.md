@@ -5,7 +5,7 @@ A Robust Aerial System for Tracking Agile Target in Cluttered Environments
 ## 0. Overview
 **Fast-Tracker** is a systematic  solution  that uses  an  unmanned  aerial  vehicle  (UAV)  to  aggressively  and safely track an agile target. 
 
-**Author**: Zhichao Han\*, Ruibin Zhang\*, Neng Pan\*, Chao Xu\* and [Fei Gao](https://ustfei.com/) from the [ZJU Fast Lab](www.kivact.com/). 
+**Author**: Zhichao Han\*, Ruibin Zhang\*, Neng Pan\*, Chao Xu and [Fei Gao](https://ustfei.com/) from the [ZJU Fast Lab](www.kivact.com/). 
 
 **Related Paper**: [Fast-Tracker: A Robust Aerial System for Tracking AgileTarget in Cluttered Environments](https://arxiv.org/abs/2011.03968), Zhichao Han\*, Ruibin Zhang\*, Neng Pan\*, Chao Xu, Fei Gao, accepted, International Conference on Robotics and Automation (ICRA 2021)
 

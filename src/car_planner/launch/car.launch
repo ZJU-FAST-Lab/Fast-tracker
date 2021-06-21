@@ -1,0 +1,69 @@
+  <launch>
+    <arg name="map_size_x_" value="42.0"/>
+    <arg name="map_size_y_" value="40.0"/>
+    <arg name="map_size_z_" value="5.0"/>
+
+    <!-- random map -->
+    <node pkg ="map_generator" name ="random_forest" type ="random_forest" output = "screen">    
+        <param name="map/x_size"     value="$(arg map_size_x_)" />
+        <param name="map/y_size"     value="$(arg map_size_y_)" />
+        <param name="map/z_size"     value="$(arg map_size_z_)" />
+        <param name="map/resolution" value="0.1"/>        
+
+        <param name="ObstacleShape/seed" value="1"/>
+        
+        <param name="map/obs_num"    value="105"/>
+        <param name="ObstacleShape/lower_rad" value="1.0"/>
+        <param name="ObstacleShape/upper_rad" value="1.3"/>
+        <param name="ObstacleShape/lower_hei" value="0.5"/>
+        <param name="ObstacleShape/upper_hei" value="3.0"/>        
+
+        <param name="map/circle_num" value="40"/>        
+        <param name="ObstacleShape/radius_l" value="0.7"/>        
+        <param name="ObstacleShape/radius_h" value="0.5"/>        
+        <param name="ObstacleShape/z_l" value="0.7"/>        
+        <param name="ObstacleShape/z_h" value="0.8"/>        
+        <param name="ObstacleShape/theta" value="0.5"/>        
+
+        <param name="sensing/radius" value="5.0"/>        
+        <param name="sensing/rate"   value="1.0"/>  
+        
+        <param name="min_distance" value="1.2"/>         
+        <remap from="/map_generator/global_cloud" to="/global_map"/>
+
+    </node>
+
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find car_planner)/param/default.rviz" required="true" />
+
+
+
+ <node pkg="car_planner" type="car_node" name="car_node" output="screen">
+    <remap from="~global_map"       to = "/global_map"/>
+    <remap from="~waypoints"       to = "/move_base_simple/goal"/>
+    <param name="car/init_x"   value="0.0" />
+    <param name="car/init_y"   value="0.0" />
+    <param name="car/init_yaw"   value="0.0" />
+    <param name="world_frame_id" value="world" type="string"/>
+    <param name="car_search/tau" value="0.1" type="double"/>
+    <param name="car_seach/velocity" value="5.0" type="double"/>
+    <param name="car_search/lambda_heu" value="1.0" type="double"/>
+    <param name="car_search/allocate_num" value="100000" type="int"/>
+    <param name="car_search/check_num" value="10" type="int"/>
+    <param name="car_search/car_l" value="1.35" type="double"/>
+    <param name="car_search/car_w" value="0.57" type="double"/>
+    <param name="car_search/car_h" value="0.39" type="double"/>
+    <param name="car_search/max_steer" value="0.7" type="double"/>
+    <param name="car_search/wheelbase" value="0.6" type="double"/>
+    <param name="car_search/yaw_resolution" value="0.17453" type="double"/>
+    <param name="car_search/check_dt" value="0.05" type="double"/>
+    <param name="car_search/frame" value="world" type="string"/>
+    <param name="car_search/resolution"      value="0.1" /> 
+    <param name="map/z_size"      value="$(arg map_size_z_)" />
+    <param name="map/y_size"      value="$(arg map_size_y_)" />
+    <param name="map/x_size"      value="$(arg map_size_x_)" />
+  </node>
+
+    <!-- use simulator -->
+  
+  </launch>

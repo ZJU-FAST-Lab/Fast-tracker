@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package>
+  <name>sfc_generation</name>
+  <version>0.0.1</version>
+  <description> sfc_generation </description>
+    <maintainer email="zhichaohan@zju.edu.cn">zhichaohan</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+  <build_depend>plan_env</build_depend>
+  <run_depend>plan_env</run_depend>
+  <build_depend>grid_path_searcher</build_depend>nd>
+  <run_depend>grid_path_searcher</run_depend>
+
+  <export>
+
+  </export>
+</package>

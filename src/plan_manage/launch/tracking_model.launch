@@ -1,0 +1,155 @@
+  <launch>
+    <arg name="map_size_x_" value="42.0"/>
+    <arg name="map_size_y_" value="40.0"/>
+    <arg name="map_size_z_" value="5.0"/>
+
+    <!-- random map -->
+    <node pkg ="map_generator" name ="random_forest" type ="random_forest" output = "screen">    
+        <param name="map/x_size"     value="$(arg map_size_x_)" />
+        <param name="map/y_size"     value="$(arg map_size_y_)" />
+        <param name="map/z_size"     value="$(arg map_size_z_)" />
+        <param name="map/resolution" value="0.1"/>        
+
+        <param name="ObstacleShape/seed" value="1"/>
+        
+        <param name="map/obs_num"    value="175"/>
+        <param name="ObstacleShape/lower_rad" value="1.0"/>
+        <param name="ObstacleShape/upper_rad" value="1.3"/>
+        <param name="ObstacleShape/lower_hei" value="0.5"/>
+        <param name="ObstacleShape/upper_hei" value="3.0"/>        
+
+        <param name="map/circle_num" value="80"/>        
+        <param name="ObstacleShape/radius_l" value="0.7"/>        
+        <param name="ObstacleShape/radius_h" value="0.5"/>        
+        <param name="ObstacleShape/z_l" value="0.7"/>        
+        <param name="ObstacleShape/z_h" value="0.8"/>        
+        <param name="ObstacleShape/theta" value="0.5"/>        
+
+        <param name="sensing/radius" value="5.0"/>        
+        <param name="sensing/rate"   value="1.0"/>  
+        
+        <param name="min_distance" value="1.2"/>         
+        <remap from="/map_generator/global_cloud" to="/global_map"/>
+
+    </node>
+
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find plan_manage)/rviz/default.rviz" required="true" />
+
+
+
+ <node pkg="car_planner" type="car_node" name="car_node" output="screen">
+    <remap from="~global_map"       to = "/global_map"/>
+    <remap from="~waypoints"       to = "/move_base_simple/goal"/>
+    <remap from="~car_state"       to = "/car_state"/>
+    <param name="car/init_x"   value="0.0" />
+    <param name="car/init_y"   value="0.0" />
+    <param name="car/init_yaw"   value="0.0" />
+    <param name="world_frame_id" value="world" type="string"/>
+    <param name="car_search/tau" value="0.15" type="double"/>
+    <param name="car_seach/velocity" value="2.5" type="double"/>
+    <param name="car_search/lambda_heu" value="1.0" type="double"/>
+    <param name="car_search/allocate_num" value="100000" type="int"/>
+    <param name="car_search/check_num" value="10" type="int"/>
+    <param name="car_search/car_l" value="1.0" type="double"/>
+    <param name="car_search/car_w" value="0.42" type="double"/>
+    <param name="car_search/car_h" value="0.29" type="double"/>
+    <param name="car_search/max_steer" value="0.7" type="double"/>
+    <param name="car_search/wheelbase" value="0.6" type="double"/>
+    <param name="car_search/yaw_resolution" value="0.17453" type="double"/>
+    <param name="car_search/check_dt" value="0.05" type="double"/>
+    <param name="car_search/frame" value="world" type="string"/>
+    <param name="car_search/resolution"      value="0.1" /> 
+    <param name="map/z_size"      value="$(arg map_size_z_)" />
+    <param name="map/y_size"      value="$(arg map_size_y_)" />
+    <param name="map/x_size"      value="$(arg map_size_x_)" />
+  </node>
+  
+  <node pkg="target_detection" type="sim_detect_node" name="sim_detect_node" output="screen">
+    <remap from="~car_state_detect"       to = "/car_state"/>
+    <remap from="~global_map"       to = "/global_map"/>
+    <remap from="~drone_odom"       to = "/visual_slam/odom"/>
+    <remap from="~target"       to = "/target"/>
+
+    <param name="grid_map/resolution"      value="0.1" /> 
+    <param name="grid_map/map_size_x"   value="$(arg map_size_x_)" /> 
+    <param name="grid_map/map_size_y"   value="$(arg map_size_y_)" /> 
+    <param name="grid_map/map_size_z"   value="$(arg map_size_z_)" /> 
+  </node>
+
+  <node pkg="plan_manage" type="tracking_fsm_node" name="tracking_fsm_node" output="screen">
+    <remap from="~target"       to = "/target"/>
+    <remap from="~odom"            to="/visual_slam/odom"/>
+    <remap from="~trajectory"     to=  "/trajectory" />
+    <remap from="/grid_map/odom" to="/visual_slam/odom"/>
+    <remap from="/grid_map/cloud" to="/pcl_render_node/cloud"/>
+    <remap from = "/grid_map/pose"   to = "/pcl_render_node/camera_pose"/> 
+    <remap from = "/grid_map/depth" to = "/pcl_render_node/depth"/>
+    <param name="traj/vmax"  value = "2.5"/>
+    <param name="traj/amax"  value = "3.5"/>
+    <!-- kino search -->
+    <param name="search/max_tau"  value = "0.3"/>
+    <param name="search/init_max_tau" value = "0.8"/>
+    <param name="search/max_vel"  value = "3.0" />
+    <param name="search/max_acc"  value = "4.0"/>
+    <param name="search/w_time"  value = "1.0"/>
+    <param name="search/lambda_heu" value = "10.0"/>
+    <param name="search/check_num"  value = "10"/>   
+    <param name="search/weight_heu_time"  value = "10000"/>   
+    <!-- sensing part -->
+    <param name="grid_map/resolution"      value="0.1" /> 
+    <param name="grid_map/map_size_x"   value="$(arg map_size_x_)" /> 
+    <param name="grid_map/map_size_y"   value="$(arg map_size_y_)" /> 
+    <param name="grid_map/map_size_z"   value="$(arg map_size_z_)" /> 
+    <param name="grid_map/local_update_range_x"  value="5.0" /> 
+    <param name="grid_map/local_update_range_y"  value="5.0" /> 
+    <param name="grid_map/local_update_range_z"  value="5.0" /> 
+    <param name="grid_map/obstacles_inflation"     value="0.099" /> 
+    <param name="grid_map/local_map_margin" value="30"/>
+    <param name="grid_map/ground_height"        value="-0.01"/>
+    <!-- camera parameter -->
+    <param name="grid_map/cx" value="319.3750915527344"/>
+    <param name="grid_map/cy" value="241.12332153320312"/>
+    <param name="grid_map/fx" value="385.2784729003906"/>
+    <param name="grid_map/fy" value="385.2784729003906"/>
+    <!-- depth filter -->
+    <param name="grid_map/use_depth_filter" value="true"/>
+    <param name="grid_map/depth_filter_tolerance" value="0.15"/>
+    <param name="grid_map/depth_filter_maxdist"   value="5.0"/>
+    <param name="grid_map/depth_filter_mindist"   value="0.2"/>
+    <param name="grid_map/depth_filter_margin"    value="2"/>
+    <param name="grid_map/k_depth_scaling_factor" value="1000.0"/>
+    <param name="grid_map/skip_pixel" value="2"/>
+    <!-- local fusion -->
+    <param name="grid_map/p_hit"  value="0.65"/>
+    <param name="grid_map/p_miss" value="0.35"/>
+    <param name="grid_map/p_min"  value="0.12"/>
+    <param name="grid_map/p_max"  value="0.90"/>
+    <param name="grid_map/p_occ"  value="0.80"/>
+    <param name="grid_map/min_ray_length" value="0.1"/>
+    <param name="grid_map/max_ray_length" value="4.5"/>
+
+    <param name="grid_map/virtual_ceil_height"   value="2.5"/>
+    <param name="grid_map/visualization_truncate_height"   value="2.4"/>
+    <param name="grid_map/show_occ_time"  value="false"/>
+    <param name="grid_map/pose_type"     value="1"/>  
+    <param name="grid_map/frame_id"      value="world"/>
+
+    
+
+  </node>
+
+
+  <include file="$(find plan_manage)/launch/simulator.xml">
+    <arg name="map_size_x_" value="$(arg map_size_x_)"/>
+    <arg name="map_size_y_" value="$(arg map_size_y_)"/>
+    <arg name="map_size_z_" value="$(arg map_size_z_)"/>
+    <arg name="c_num" value="10"/>
+    <arg name="p_num" value="80"/>
+
+  </include>
+
+
+    <!-- use simulator -->
+  
+  </launch>
